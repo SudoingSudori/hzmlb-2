@@ -1,0 +1,6 @@
+enka==2.4.4
+git+https://github.com/Rapptz/discord.py
+jishaku==2.5.2
+python-dotenv==1.0.1
+aiosqlite==0.20.0
+git+https://github.com/Rapptz/discord-ext-menus
