@@ -8,10 +8,7 @@ class DiscordConfig:
     TOKEN: str = os.environ.get("TOKEN") if not DEBUG else os.environ.get("TOKEN_DEBUG")
     command_prefix: list[str] = os.environ.get("PREFIX").split(",") if not DEBUG else os.environ.get("PREFIX_DEBUG").split(",")
     cogs: list[str] = ["jishaku"]
-    owner_ids: list[str] = os.environ.get("OWNERS").split(",")
-
-    db: aiosqlite.Connection = aiosqlite.connect("db.db")
-    db.row_factory = aiosqlite.Row
+    owner_ids: list[int] = list(map(int, os.environ.get("OWNERS").split(",")))
 
 class EnkaConfig:
     useragent: str = os.environ.get("USERAGENT")
