@@ -13,11 +13,12 @@ class HeizouBot(commands.Bot):
         intents = Intents.all()
 
         super().__init__(command_prefix=command_prefix, owner_ids=owner_ids, intents=intents)
-        self.db = db
+        self.db: aiosqlite.Connection = db
         self.db.row_factory = aiosqlite.Row
-        self.api = api
+        self.api: GenshinClient = api
     
     async def on_ready(self) -> None:
+        assert self.user is not None
         print(f"Online as {self.user} ({self.user.id})")
 
 async def main():

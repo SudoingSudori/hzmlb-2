@@ -1,15 +1,14 @@
 import dotenv
-dotenv.load_dotenv(".env")
+dotenv.load_dotenv(dotenv_path=".env")
 import os
-import aiosqlite
 
 class DiscordConfig:
-    DEBUG: bool = os.environ.get("DEBUG", 0)
-    TOKEN: str = os.environ.get("TOKEN") if not DEBUG else os.environ.get("TOKEN_DEBUG")
-    command_prefix: list[str] = os.environ.get("PREFIX").split(",") if not DEBUG else os.environ.get("PREFIX_DEBUG").split(",")
+    DEBUG: bool = bool(os.environ.get("DEBUG", False))
+    TOKEN: str = os.environ.get("TOKEN", "") if not DEBUG else os.environ.get("TOKEN_DEBUG", "")
+    command_prefix: list[str] = os.environ.get("PREFIX","").split(",") if not DEBUG else os.environ.get("PREFIX_DEBUG","").split(",")
     cogs: list[str] = ["jishaku"]
-    owner_ids: list[int] = list(map(int, os.environ.get("OWNERS").split(",")))
+    owner_ids: list[int] = list(map(int, os.environ.get("OWNERS","").split(",")))
 
 class EnkaConfig:
-    useragent: str = os.environ.get("USERAGENT")
-    char_id: int = os.environ.get("CHAR_ID")
+    useragent: str = os.environ.get("USERAGENT", "")
+    char_id: int = int(os.environ.get("CHAR_ID", 0))
