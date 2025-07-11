@@ -32,6 +32,8 @@ class UserStats:
         level: int = data.get("level", 90)
         ascension: int = data.get("ascension", 6)
         talent= data.get('talent', (10,10,10))
+        if isinstance(talent, dict):
+            talent = (talent["AA"], talent["E"], talent["Q"])
         const: int = data.get("const", 0)
         hp: float = data.get("HP%", 1.0)
         hp_f: float = data.get("Flat HP", 0)
