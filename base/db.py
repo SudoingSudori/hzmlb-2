@@ -6,7 +6,7 @@ from typing import Any, Iterable, Optional
 # it's all just wraps around basic sql stuff because i do not trust myself with not screwing it up in other files
 class DB:
     tables = ["users", "leaderboards", "builds", "scores", "verification", "settings"]
-    def __init__(self, path: str, event_loop: asyncio.EventLoop) -> None:
+    def __init__(self, path: str, event_loop: asyncio.AbstractEventLoop) -> None:
         self.path = path
         asyncio.ensure_future(self.__ainit__(), loop=event_loop)
 
@@ -36,6 +36,10 @@ class DB:
             await self.db.execute(x)
         await self.db.commit()
         
+        return
+    
+    async def close(self) -> None:
+        await self.db.close()
         return
     
     async def add_user(self, uid: int, name: str, did: int) -> None:
